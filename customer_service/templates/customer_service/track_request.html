@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Track Requests</title>
+  </head>
+  <body>
+    <h1>Your Service Requests</h1>
+
+    <div style="text-align: left; margin: 10px">
+      <span>Logged in as Customer ID: <strong>{{ customer_id }}</strong></span>
+    </div>
+    <br>
+    {% if requests %}
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Request ID</th>
+          <th>Service Type</th>
+          <th>Status</th>
+          <th>Date Submitted</th>
+          <th>Resolved Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for request in requests %}
+        <tr>
+          <td>{{ request.id }}</td>
+          <td>{{ request.request_type }}</td>
+          <td>{{ request.status }}</td>
+          <td>{{ request.request_date|date:"Y-m-d H:i:s" }}</td>
+          <td>
+            {% if request.status == 'Resolved' %}
+              {{ request.resolved_date|date:"Y-m-d H:i:s" }}
+            {% else %}
+              N/A
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No requests found.</p>
+    {% endif %}
+    <br>
+    <button onclick="window.location.href='/submit/'">
+      Submit a new Request
+    </button>
+  </body>
+</html>

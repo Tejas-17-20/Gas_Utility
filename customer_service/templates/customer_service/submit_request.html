@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submit Service Request</title>
+    <script>
+      async function submitForm(event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+
+        try {
+          const response = await fetch(form.action, {
+            method: "POST",
+            body: formData,
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            if (data.success) {
+              alert(
+                `Your request has been submitted successfully. Your Request ID is: ${data.request_id}`
+              );
+              form.reset();
+            } else {
+              alert(
+                "Form submission failed. Please correct the errors and try again."
+              );
+              console.error(data.errors);
+            }
+          } else {
+            alert(
+              "There was an error submitting your request. Please try again."
+            );
+          }
+        } catch (error) {
+          alert("An unexpected error occurred. Please try again.");
+          console.error(error);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const message = "{{ message|escapejs }}";
+        const messageType = "{{ message_type }}";
+
+        if (message) {
+          const alertType = messageType === "success" ? "Success" : "Error";
+          alert(`${alertType}: ${message}`);
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div style="text-align: left; margin: 10px">
+      <span>Logged in as Customer ID: <strong>{{ customer_id }}</strong></span>
+      <br><br>
+      <button onclick="window.location.href='/track/'">
+        Track my Requests
+      </button>
+      <button onclick="window.location.href='/account/'">My Account</button>
+      <button onclick="window.location.href='/login/'">Log out</button>
+    </div>
+
+    {% if message %}
+    <div class="{{ message_type }}">{{ message }}</div>
+    {% endif %}
+
+    <h1>Submit Service Request</h1>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Submit Request</button>
+    </form>
+  </body>
+</html>
