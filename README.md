@@ -28,7 +28,7 @@ Refer to the **"Case_study_solution.pdf"** for a detailed solution.
 
 Directory structure:
 ```
-└── kushal-zinzuvadia-consumer-services-portal/
+└── Gas_Utility/
     ├── README.md
     ├── LICENSE
     ├── db.sqlite3
