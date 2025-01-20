@@ -95,7 +95,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ## Setup Instructions
 1. Clone the repository:
-   ```git clone https://github.com/kushalzinzuvadia/consumer-services-portal.git```
+   ```git clone https://github.com/TejasDehade/consumer-services-portal.git```
 
 2. Navigate to the project directory:
     ```cd kushal-zinzuvadia-consumer-services-portal```
